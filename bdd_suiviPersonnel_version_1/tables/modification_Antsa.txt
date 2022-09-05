@@ -1,0 +1,36 @@
+créer une nouvelle table pers_historique_sanctions dans le fichier bdd_suiviPersonnel_table_12, ajout colonne date_sanctions
+créer une view v_historique_sanctions dans le fichier bdd_suiviPersonnel_view_2
+
+ajout colonne duree dans pers_sanctions
+modifier nom_saction pour id 5,6,7,8
+
+Créer une table pers_historique_sanctions
+modification colonne description => description_id bigint  = clé étrangère
+ajout colone discipline _id big_int =clé étrangère
+
+insérer 1001 - dans pers_mesure_disciplinaire
+insérer 1001 - dans pers_mesure_administrative
+
+modifier valeur par défaut colonne description_id 1001 dans pers_historique_sanctions && colonne discipline_id 1001
+ ajout colonne duree dans pers_historique_sanctions
+
+
+supprimer colonne duree dans pers_sanctions
+
+CREATE OR REPLACE view v_materiels AS
+SELECT
+pers_materiels.id ,
+employer_id, nom_emp, prenom_emp,code, description,lien_image, num_serie, date,date_fin
+
+ FROM pers_materiels, pers_type_materiels, employers
+  Where employers.id=pers_materiels.employer_id
+   AND pers_materiels.description_id=pers_type_materiels.id
+
+  ALTER TABLE `pers_materiels` ADD `date_fin` DATE NULL DEFAULT NULL AFTER `date`;
+
+31-08-22
+  Modification de la table pers_contrats : ajout d'une clé étrangère entreprise_id dans bdd_suiviPersonnel_5 
+
+01-09-22
+  Modification de la table pers_documents : ajout d'une clé étrangère entreprise_id dans bdd_suiviPersonnel_5
+  Modification de la table pers_documents : modifier clé étrangère employer_id dans bdd_suiviPersonnel_5 

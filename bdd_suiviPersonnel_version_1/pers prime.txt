@@ -1,0 +1,76 @@
+CREATE TABLE paie_prime_indemnites(
+    id BIGINT(20) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    code VARCHAR(255),
+    designation VARCHAR(255),
+    unite VARCHAR(50)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/* ALTER TABLE paie_prime_indemnites ADD COLUMN unite VARCHAR(50); */
+
+INSERT INTO paie_prime_indemnites(code,designation) VALUES('4000','Acienneté');
+INSERT INTO paie_prime_indemnites(code,designation) VALUES('4001','Treisieme mois');
+INSERT INTO paie_prime_indemnites(code,designation) VALUES('4002','Performance');
+
+CREATE TABLE pers_detail_prime_indemnites(
+    id BIGINT(20) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    id_fiche_de_pers BIGINT(20) UNSIGNED,
+    id_prime_indemnites BIGINT(20) UNSIGNED NOT NULL,
+    id_employer BIGINT(20) UNSIGNED NOT NULL,
+    nombre BIGINT(20),
+    base DECIMAL(19 , 2),
+    montant_part_salarial DECIMAL(19 , 2),
+    taux_part_salarial BIGINT(20),
+    type_part_salarial VARCHAR(100),              /* gain ou retenu */
+    created_date DATE NOT NULL,
+    FOREIGN KEY(id_prime_indemnites) REFERENCES paie_prime_indemnites(id) ON DELETE CASCADE,
+    FOREIGN KEY(id_fiche_de_paie) REFERENCES paie_fiche_de_paie(id) ON DELETE CASCADE,
+    FOREIGN KEY(id_employer) REFERENCES employers(id) ON DELETE CASCADE
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE pers_avantage_en_natures(
+    id BIGINT(20) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    code VARCHAR(255),
+    designation VARCHAR(255),
+    unite VARCHAR(50)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/* ALTER TABLE paie_avantage_en_natures ADD COLUMN unite VARCHAR(50); */
+INSERT INTO paie_avantage_en_natures(code,designation)VALUES('5000','Logement');
+INSERT INTO paie_avantage_en_natures(code,designation)VALUES('5001','Véhicule');
+INSERT INTO paie_avantage_en_natures(code,designation)VALUES('5002','Téléphone');
+
+CREATE TABLE pers_detail_avantage_en_natures(
+    id BIGINT(20) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    id_fiche_de_paie BIGINT(20) UNSIGNED,
+    id_avantage_en_natures BIGINT(20) UNSIGNED NOT NULL,
+    id_employer BIGINT(20) UNSIGNED NOT NULL,
+    nombre BIGINT(20),
+    base DECIMAL(19 , 2),
+    montant_part_salarial DECIMAL(19 , 2),
+    taux_part_salarial BIGINT(20),
+    gain_salarial VARCHAR(100),              /* gain */
+    created_date DATE NOT NULL,
+    FOREIGN KEY(id_avantage_en_natures) REFERENCES paie_avantage_en_natures(id) ON DELETE CASCADE,
+    FOREIGN KEY(id_fiche_de_paie) REFERENCES paie_fiche_de_paie(id) ON DELETE CASCADE,
+    FOREIGN KEY(id_employer) REFERENCES employers(id) ON DELETE CASCADE
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+CREATE TABLE pers_non_soumis(
+    id BIGINT(20) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    code VARCHAR(255),
+    designation VARCHAR(255),
+    unite VARCHAR(50)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE pers_detail_non_soumis(
+    id BIGINT(20) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    id_fiche_de_paie BIGINT(20) UNSIGNED,
+    id_non_soumis BIGINT(20) UNSIGNED NOT NULL,
+    id_employer BIGINT(20) UNSIGNED NOT NULL,
+    nombre BIGINT(20),
+    base DECIMAL(19 , 2),
+    montant_part_salarial DECIMAL(19 , 2),
+    taux_part_salarial BIGINT(20),
+    type_part_salarial VARCHAR(100),              /* gain ou retenu */
+    created_date DATE NOT NULL,
+    FOREIGN KEY(id_non_soumis) REFERENCES paie_non_soumis(id) ON DELETE CASCADE,
+    FOREIGN KEY(id_fiche_de_paie) REFERENCES paie_fiche_de_paie(id) ON DELETE CASCADE,
+    FOREIGN KEY(id_employer) REFERENCES employers(id) ON DELETE CASCADE
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

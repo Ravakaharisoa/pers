@@ -1,0 +1,180 @@
+creation de table frais_annexe_formation(bdd_suiviformation_mise_a_jour_5)
+
+ALTER TABLE presences ADD COLUMN h_entree time;
+ALTER TABLE presences ADD COLUMN h_sortie time;
+
+ALTER TABLE presences Modify column status int(2) not null;
+
+creation de view v_detail_presence(bdd_suiviformation_view_9)
+
+----9 feb
+creation du view v_evaluation_stagiaire_competence(competences_evaluation)
+
+----14 feb
+ALTER TABLE groupes Modify column status int(2) not null;
+
+creation table status(Modification_bdd(projet))
+
+ALTER TABLE groupe_entreprises
+ADD CONSTRAINT incription UNIQUE (groupe_id,entreprise_id);
+
+
+--------Mars 14
+modification vue  v_formateur_projet (bdd_suiviformation_view_4.0(modification_views_projet))
+modification vue  v_groupe_projet_module (bdd_suiviformation_view_4.0(modification_views_projet))
+modification vue v_evaluation_action_formation (bdd_suiviformationrapport-finale)
+modification vue v_programme_detail_activiter (bdd_suiviformationrapport-finale)
+modification vue v_pourcent_globale_evaluation_action_formation (bdd_suiviformationrapport-finale)
+modification vue v_trie_detail_date (bdd_suiviformationrapport-finale)
+
+------ Mars 18
+modification table reponse_evaluationchaud (bdd_suiviformation_mise_a_jour_5(projet_et_evaluation))
+
+
+--------mars 22
+creation de vue v_montant_session => bdd_suiviformation_view_4.0(modification_views_projet)
+
+ALTER TABLE participant_groupe
+ADD CONSTRAINT incription_session UNIQUE (groupe_id,stagiaire_id);
+
+--------mars 23
+
+-creation view v_detail_session => bdd_suiviformation_view_4.0(modification_views_projet)
+
+-recréer view v_stagiaire_groupe => bdd_suiviformation_view_4.0(modification_views_projet)
+
+ALTER TABLE stagiaires
+    modify genre_stagiaire bigint(20) unsigned,
+    ADD CONSTRAINT FOREIGN KEY(genre_stagiaire) REFERENCES genre(id);
+- Recopier la view dans bbd_suivi_25 [v_responsable_cfp]
+
+--------mars 24
+ALTER TABLE stagiaires
+DROP COLUMN genre_stagiaire;
+ALTER TABLE stagiaires
+    add column genre_stagiaire bigint(20) unsigned,
+    ADD CONSTRAINT FOREIGN KEY(genre_stagiaire) REFERENCES genre(id);
+
+ALTER TABLE responsables
+DROP COLUMN sexe_resp;
+ALTER TABLE responsables
+    add column genre_id bigint(20) unsigned,
+    ADD CONSTRAINT FOREIGN KEY(genre_id) REFERENCES genre(id);
+
+ALTER TABLE formateurs
+DROP COLUMN genre;
+ALTER TABLE formateurs
+    add column genre_id bigint(20) unsigned,
+    ADD CONSTRAINT FOREIGN KEY(genre_id) REFERENCES genre(id);
+
+ALTER TABLE chef_departements
+DROP COLUMN genre_chef;
+ALTER TABLE chef_departements
+    add column genre_id bigint(20) unsigned,
+    ADD CONSTRAINT FOREIGN KEY(genre_id) REFERENCES genre(id);
+
+- Recopier la view dans bbd_suivi_25 [v_responsable_cfp]
+
+----------mars 28
+ALTER TABLE description_champ_reponse
+add column point_champ int(5) default 0;
+
+----------mars 31
+recréer vu v_groupe_projet_module => bdd_suiviformation_view_4.0(modification_views_projet)
+recréer vu v_responsable_entreprise => bdd_suiviformation_view_29(budgetisation)
+
+-------avril 5
+recréer vu v_groupe_entreprise => bdd_suiviformation_view_4.0(modification_views_projet)
+recréer vu v_groupe_projet_module => bdd_suiviformation_view_4.0(modification_views_projet)
+recréer vu v_projet_session_inter => bdd_suiviformation_view_4.0(modification_views_projet)
+
+
+--------avril 8
+recréer vu v_groupe_entreprise => bdd_suiviformation_view_4.0(modification_views_projet)
+recréer vu v_groupe_projet_module => bdd_suiviformation_view_4.0(modification_views_projet)
+recréer vu v_projet_session_inter => bdd_suiviformation_view_4.0(modification_views_projet)
+
+----------avril 13
+recréer vu v_stagiaire_groupe => bdd_suiviformation_view_4.0(modification_views_projet)
+
+----------avril 14
+ALTER TABLE groupes ADD COLUMN modalite VARCHAR(200);
+
+recréer vu v_groupe_projet_module  => bdd_suiviformation_view_4.0(modification_views_projet)
+recréer vu v_groupe_entreprise  => bdd_suiviformation_view_4.0(modification_views_projet)
+recréer vu v_projet_formateur  => bdd_suiviformation_view_4.0(modification_views_projet)
+
+-------avril 20
+creation table salle_formation_of => Modification_bdd(projet)
+
+
+--------mai 4
+creation vu v_presence_groupe => bdd_suiviformation_view_4.0(modification_views_projet)
+--------mai 5
+creation vu v_session_projet => bdd_suiviformation_view_4.0(modification_views_projet)
+
+--------mai 6
+alter table ressources add column pris_en_charge VARCHAR(200);
+alter table ressources add column note text;
+
+--------mai 10
+alter table salle_formation_of add column ville VARCHAR(200);
+
+update details set lieu = 'Antananarivo,  Analamihitsy Numerika DSI';
+
+
+alter table participant_groupe add column status int(10) default 0;
+
+
+-------mai 13
+creation view v_evaluation_stagiaire_competence =>creation vu v_session_projet => bdd_suiviformation_view_19.1(competences_evaluation)
+creation view v_evaluation_globale =>creation vu v_session_projet => bdd_suiviformation_view_19.1(competences_evaluation)
+
+
+---------mai 19
+alter table frais_annexes add column entreprise_id bigint(20) UNSIGNED NOT NULL REFERENCES entreprises(id) ON DELETE CASCADE;
+
+------------mai 24
+------------mai 23
+recréer vue v_groupe_projet_module => bdd_suiviformation_view_4.0(modification_views_projet)
+
+
+------------mai 31
+alter table question_fille add column point_max int(10) default 0;
+modification table reponse_evaluationchaud (bdd_suiviformation_mise_a_jour_5(projet_et_evaluation))
+ALTER TABLE reponse_evaluationchaud add column points int(11) default 0;
+ALTER TABLE reponse_evaluationchaud add column status int(2) NULL;
+
+UPDATE `question_fille` SET `point_max` = '4' WHERE `question_fille`.`id` = 3;
+UPDATE `question_fille` SET `point_max` = '4' WHERE `question_fille`.`id` = 4;
+UPDATE `question_fille` SET `point_max` = '4' WHERE `question_fille`.`id` = 6;
+UPDATE `question_fille` SET `point_max` = '4' WHERE `question_fille`.`id` = 7;
+UPDATE `question_fille` SET `point_max` = '4' WHERE `question_fille`.`id` = 8;
+UPDATE `question_fille` SET `point_max` = '4' WHERE `question_fille`.`id` = 9;
+UPDATE `question_fille` SET `point_max` = '3' WHERE `question_fille`.`id` = 10;
+UPDATE `question_fille` SET `point_max` = '4' WHERE `question_fille`.`id` = 11;
+UPDATE `question_fille` SET `point_max` = '4' WHERE `question_fille`.`id` = 12;
+UPDATE `question_fille` SET `point_max` = '4' WHERE `question_fille`.`id` = 13;
+UPDATE `question_fille` SET `point_max` = '4' WHERE `question_fille`.`id` = 15;
+UPDATE `question_fille` SET `point_max` = '4' WHERE `question_fille`.`id` = 16;
+UPDATE `question_fille` SET `point_max` = '2' WHERE `question_fille`.`id` = 17;
+
+UPDATE `description_champ_reponse` SET `point_champ` = '2' WHERE `description_champ_reponse`.`id` = 56;
+UPDATE `description_champ_reponse` SET `point_champ` = '1' WHERE `description_champ_reponse`.`id` = 57;
+
+creation vue v_reponse_evaluationchaud => bdd_suiviformation_view_19(evaluationChaud)
+creation vue v_nombre_stagiaire_groupe => bdd_suiviformation_view_19(evaluationChaud)
+creation vue v_evaluation_chaud => bdd_suiviformation_view_19(evaluationChaud)
+
+----juin 13
+copier bdd_suiviformation_view_19(evaluationChaud)
+UPDATE `description_champ_reponse` SET `point_champ`='2' WHERE `descr_champs`='Un peu';
+UPDATE `description_champ_reponse` SET `point_champ`='3' WHERE `descr_champs`='Beaucoup';
+UPDATE `description_champ_reponse` SET `point_champ`='2' WHERE `descr_champs`='Oui';
+UPDATE `description_champ_reponse` SET `point_champ`='1' WHERE `descr_champs`='Pas de Tout';
+UPDATE `description_champ_reponse` SET `point_champ`='2' WHERE `descr_champs`='Insuffisamment';
+UPDATE `description_champ_reponse` SET `point_champ`='3' WHERE `descr_champs`='En partie';
+UPDATE `description_champ_reponse` SET `point_champ`='4' WHERE `descr_champs`='Totalement';
+UPDATE `description_champ_reponse` SET `point_champ`='3' WHERE `descr_champs`='Adapté';
+UPDATE `description_champ_reponse` SET `point_champ`='1' WHERE `descr_champs`='Trop rapide';
+UPDATE `description_champ_reponse` SET `point_champ`='1' WHERE `descr_champs`='Trop lent';

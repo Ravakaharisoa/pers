@@ -1,0 +1,262 @@
+remplacer site_cfp par site_web
+creation de table horaire pour enregistrer les heures d'ouverture et de fermeture des centres
+de formations
+
+CREATE TABLE horaires (
+  id bigint(20) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  jours varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  h_entree time,
+  h_sortie time,
+  created_at timestamp NULL DEFAULT current_timestamp(),
+  updated_at timestamp NULL DEFAULT current_timestamp(),
+  cfp_id bigint(20) UNSIGNED NOT NULL REFERENCES cfps(id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+alter table cfps add presentation text COLLATE utf8mb4_unicode_ci NULL
+alter table cfps rename column domaine_de_formation to slogan(mbola ts natao script fa tanana)
+
+creation de nouvelle vue horaire, cfp et formation doncil faut changer tous les vuesou il y a
+le domaine_de_formation en slogan et ajouterla nouvelle collonne presentation
+
+On doit aussi ajouter dans le cfp des nouvelles collones en plus de la presentation:
+  - specialisation du cfp
+alter table cfps add specialisation text COLLATE utf8mb4_unicode_ci NULL;
+
+la table doit encore changer et les vues auquels elle est affiliees
+
+creer une nouvelle table pour les liens des reseaux sociaux des centres de formation
+
+CREATE TABLE reseaux_sociaux (
+  id bigint(20) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  lien_facebook varchar(191) COLLATE utf8mb4_unicode_ci NULL,
+  lien_twitter varchar(191) COLLATE utf8mb4_unicode_ci NULL,
+  lien_instagram varchar(191) COLLATE utf8mb4_unicode_ci NULL,
+  lien_linkedin varchar(191) COLLATE utf8mb4_unicode_ci NULL,
+  created_at timestamp NULL DEFAULT current_timestamp(),
+  updated_at timestamp NULL DEFAULT current_timestamp(),
+  cfp_id bigint(20) UNSIGNED NOT NULL REFERENCES cfps(id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+creer des nouvelles vues pour le reseaux sociaux etle horair cfp dans view modification_view_projet.sql
+
+---------- Avril 14 -----------
+
+alter table modules add prix_groupe int(11) NULL;
+
+recréer vue v_moduleformation dans bdd_suiviformation_view_1(views_miasa+avis)
+recréer vue v_cours_programme dans bdd_suiviformation_view_1(views_miasa+avis)
+recréer vue moduleformation dans bdd_suiviformation_view_1(views_miasa+avis)
+recréer vue cfpcours dans bdd_suiviformation_view_1(views_miasa+avis)
+
+recréer vue v_programme dans bdd_suiviformation_view_2(view)
+recréer vue v_exportcatalogue dans bdd_suiviformation_view_2(view)
+
+recréer vue v_groupe_projet_entreprise_module dans modification_views_projet.sql
+
+------- 10 mai --------------
+creation copie coller bdd_suiviformation_mise_a_jour_12(formation interne entreprise)
+
+-------- 11 mai -------------
+creer table etats pour gerer la mise en ligne des modules
+
+CREATE TABLE `etats` (
+  `id` bigint(20) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  `etat` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+alter table modules add etat_id bigint(20) NOT NULL DEFAULT 2 REFERENCES etats(id) ON DELETE CASCADE;
+
+recréer vue v_moduleformation dans bdd_suiviformation_view_1(views_miasa+avis)
+recréer vue v_cours_programme dans bdd_suiviformation_view_1(views_miasa+avis)
+recréer vue moduleformation dans bdd_suiviformation_view_1(views_miasa+avis)
+recréer vue cfpcours dans bdd_suiviformation_view_1(views_miasa+avis)
+
+recréer vue v_programme dans bdd_suiviformation_view_2(view)
+recréer vue v_exportcatalogue dans bdd_suiviformation_view_2(view)
+
+recréer vue v_detailmodule dans modification_views_projet.sql
+
+--------- 20 Mai ---------
+Reinserer les données dans la table domaines supprimer les existants
+
+INSERT INTO `domaines` (`id`, `nom_domaine`, `created_at`, `updated_at`) VALUES
+(1, 'Achat, Logistique', NULL, NULL),
+(2, 'Animaux, Nature', NULL, NULL),
+(3, 'Art, Design, Décoration\r\n', NULL, NULL),
+(4, 'Artisanat, Petit Commerce\r\n', NULL, NULL),
+(5, 'Banque, Finance, Assurance\r\n', NULL, NULL),
+(6, 'Bien-Être, Relaxation\r\n', NULL, NULL),
+(7, 'Bilan De Compétences, VAE\r\n\r\n', NULL, NULL),
+(8, 'BTP, Travaux, Architecture\r\n', NULL, NULL),
+(9, 'Bureautique, Office\r\n', NULL, NULL),
+(10, 'Commerce, Marketing\r\n', NULL, NULL),
+(11, 'Communication, Événementiel\r\n', NULL, NULL),
+(12, 'Comptabilité, Gestion\r\n', NULL, NULL),
+(13, 'Défense, Sécurité, Secourisme\r\n', NULL, NULL),
+(14, 'Développement Personnel, Épanouissement\r\n', NULL, NULL),
+(15, 'Digital, Internet\r\n', NULL, NULL),
+(16, 'Enseignement, Coaching', NULL, NULL),
+(17, 'Esthétique, Coiffure\r\n', NULL, NULL),
+(18, 'Fonction Publique, Citoyenneté, Droit\r\n\r\n', NULL, NULL),
+(19, 'Hôtellerie, Restauration, Cuisine\r\n\r\n', NULL, NULL),
+(20, 'Immobilier, Urbanisme\r\n\r\n', NULL, NULL),
+(21, 'Industrie, Matériaux, Énergie\r\n', NULL, NULL),
+(22, 'Informatique, DATA, SIG\r\n', NULL, NULL),
+(23, 'Langues\r\n', NULL, NULL),
+(24, 'Management, Direction\r\n\r\n', NULL, NULL),
+(25, 'Petite Enfance, Puériculture\r\n', NULL, NULL),
+(26, 'Qualité Hygiène Sécurité Environnement\r\n\r\n', NULL, NULL),
+(27, 'Réseaux, Telecom\r\n', NULL, NULL),
+(28, 'Ressources Humaines, Paie\r\n\r\n', NULL, NULL),
+(29, 'Santé, Médecine\r\n', NULL, NULL),
+(30, 'Sciences\r\n\r\n', NULL, NULL),
+(31, 'Secrétariat, Accueil\r\n', NULL, NULL),
+(32, 'Social, Services à la Personne\r\n', NULL, NULL),
+(33, 'Tourisme, Loisirs\r\n\r\n', NULL, NULL),
+(34, 'Transport, Permis\r\n', NULL, NULL);
+
+Réinserer les données dans la table formations supprimer les existants
+
+INSERT INTO `formations` (`id`, `nom_formation`, `domaine_id`, `created_at`, `updated_at`, `cfp_id`) VALUES
+(1, 'Stock', 1, NULL, NULL,NULL),
+(2, 'Import-export', 1, NULL, NULL,NULL),
+(3, 'Agriculture', 2, NULL, NULL,NULL),
+(4, 'Soins Vétérinaires', 2, NULL, NULL,NULL),
+(5, 'Fleuriste', 2, NULL, NULL,NULL),
+(6, 'Déco', 3, '2021-11-17 04:00:01', '2021-11-17 04:00:01',NULL),
+(7, 'Photographie', 3, '2021-11-17 04:00:01', '2021-11-17 04:00:01',NULL),
+(8, 'Couture', 3, '2021-11-17 04:00:01', '2021-11-17 04:00:01',NULL),
+(9, 'Graphisme', 3, '2021-11-17 04:00:01', '2021-11-17 04:00:01',NULL),
+(10, 'Menuiserie', 4, '2021-11-17 04:00:27', '2021-11-17 04:00:27',NULL),
+(11, 'Plomberie', 4, '2021-11-17 04:00:27', '2021-11-17 04:00:27',NULL),
+(12, 'Serrurerie', 4, '2021-11-17 04:00:27', '2021-11-17 04:00:27',NULL),
+(13, 'Services', 4, '2021-11-17 04:00:27', '2021-11-17 04:00:27',NULL),
+(14, 'Banque', 5, '2021-11-17 04:00:41', '2021-11-17 04:00:41',NULL),
+(15, 'Assurance', 5, '2021-11-17 04:00:41', '2021-11-17 04:00:41',NULL),
+(16, 'Trading', 5, '2021-11-17 04:00:41', '2021-11-17 04:00:41',NULL),
+(17, 'Naturopathie', 6, '2021-11-17 04:06:54', '2021-11-17 04:06:54',NULL),
+(18, 'Sophrologie', 6, '2021-11-17 04:06:54', '2021-11-17 04:06:54',NULL),
+(19, 'Massage', 6, '2021-11-17 04:06:54', '2021-11-17 04:06:54',NULL),
+(20, 'Hypnose', 6, '2021-11-17 04:06:54', '2021-11-17 04:06:54',NULL),
+(21, 'Orientation', 7, '2021-11-17 04:07:18', '2021-11-17 04:07:18',NULL),
+(22, 'Bilan Professionnel', 7, '2021-11-17 04:07:18', '2021-11-17 04:07:18',NULL),
+(23, 'Conduite de Travaux', 8, '2021-11-17 04:07:28', '2021-11-17 04:07:28',NULL),
+(24, 'Électricité', 8, '2021-11-17 04:07:28', '2021-11-17 04:07:28',NULL),
+(25, 'Autocad', 8, '2021-11-17 04:07:28', '2021-11-17 04:07:28',NULL),
+(26, 'Excel', 9, '2021-11-17 04:07:45', '2021-11-17 04:07:45',NULL),
+(27, 'Word', 9, '2021-11-17 04:07:45', '2021-11-17 04:07:45',NULL),
+(28, 'Google Docs', 9, '2021-11-17 04:07:45', '2021-11-17 04:07:45',NULL),
+(29, 'Vente', 10, '2021-11-17 04:07:55', '2021-11-17 04:07:55',NULL),
+(30, 'Relation Client', 10, '2021-11-17 04:07:55', '2021-11-17 04:07:55',NULL),
+(31, 'Wedding Planner', 11, '2021-11-17 04:08:21', '2021-11-17 04:08:21',NULL),
+(32, 'Événement', 11, '2021-11-17 04:08:21', '2021-11-17 04:08:21',NULL),
+(33, 'Journalisme', 11, '2021-11-17 04:08:21', '2021-11-17 04:08:21',NULL),
+(34, 'Gestion', 12, '2021-11-17 04:08:31', '2021-11-17 04:08:31',NULL),
+(35, 'DCG', 12, '2021-11-17 04:08:31', '2021-11-17 04:08:31',NULL),
+(36, 'Ciel Compta', 12, '2021-11-17 04:08:31', '2021-11-17 04:08:31',NULL),
+(37, 'Paie', 12, '2021-11-17 04:08:31', '2021-11-17 04:08:31',NULL),
+(38, 'Agent de Sécurité', 13, '2021-11-17 04:08:53', '2021-11-17 04:08:53',NULL),
+(39, 'Incendie', 13, '2021-11-17 04:08:53', '2021-11-17 04:08:53',NULL),
+(40, 'SST', 13, '2021-11-17 04:08:53', '2021-11-17 04:08:53',NULL),
+(41, 'Gendarmerie', 13, '2021-11-17 04:08:53', '2021-11-17 04:08:53',NULL),
+(42, 'Gestion du Stress', 14, '2021-11-17 04:09:04', '2021-11-17 04:09:04',NULL),
+(43, 'PNL', 14, '2021-11-17 04:09:04', '2021-11-17 04:09:04',NULL),
+(44, 'Prise de Parole', 14, '2021-11-17 04:09:04', '2021-11-17 04:09:04',NULL),
+(45, 'Webdesign', 15, NULL, NULL,NULL),
+(46, 'Community Management', 15, NULL, NULL,NULL),
+(47, 'SEO', 15, NULL, NULL,NULL),
+(48, 'SEA', 15, NULL, NULL,NULL),
+(49, 'Formateur', 16, NULL, NULL,NULL),
+(50, 'Coach Sportif', 16, NULL, NULL,NULL),
+(51, 'Coach de Vie', 16, NULL, NULL,NULL),
+(52, 'Prothésiste Ongulaire', 17, '2021-11-17 04:00:01', '2021-11-17 04:00:01',NULL),
+(53, 'Maquillage', 17, '2021-11-17 04:00:01', '2021-11-17 04:00:01',NULL),
+(54, 'Manucure', 17, '2021-11-17 04:00:01', '2021-11-17 04:00:01',NULL),
+(55, 'Politique', 18, '2021-11-17 04:00:27', '2021-11-17 04:00:27',NULL),
+(56, 'RGPD', 18, '2021-11-17 04:00:27', '2021-11-17 04:00:27',NULL),
+(57, 'Juridique', 18, '2021-11-17 04:00:27', '2021-11-17 04:00:27',NULL),
+(58, 'Pâtisserie', 19, '2021-11-17 04:00:41', '2021-11-17 04:00:41',NULL),
+(59, 'Barman', 19, '2021-11-17 04:00:41', '2021-11-17 04:00:41',NULL),
+(60, 'Diététique', 19, '2021-11-17 04:00:41', '2021-11-17 04:00:41',NULL),
+(61, 'Boulanger', 19, '2021-11-17 04:00:41', '2021-11-17 04:00:41',NULL),
+(62, 'Agent Immobilier', 20, '2021-11-17 04:06:54', '2021-11-17 04:06:54',NULL),
+(63, 'Gestion Locative', 20, '2021-11-17 04:06:54', '2021-11-17 04:06:54',NULL),
+(64, 'Mécanique', 21, '2021-11-17 04:07:18', '2021-11-17 04:07:18',NULL),
+(65, 'Soudure', 21, '2021-11-17 04:07:18', '2021-11-17 04:07:18',NULL),
+(66, 'Agroalimentaire', 21, '2021-11-17 04:07:18', '2021-11-17 04:07:18',NULL),
+(67, 'Electronique', 21, '2021-11-17 04:07:18', '2021-11-17 04:07:18',NULL),
+(68, 'Développeur Web', 22, '2021-11-17 04:07:28', '2021-11-17 04:07:28',NULL),
+(69, 'Data', 22, '2021-11-17 04:07:28', '2021-11-17 04:07:28',NULL),
+(70, 'Cybersécurité', 22, '2021-11-17 04:07:28', '2021-11-17 04:07:28',NULL),
+(71, 'Anglais', 23, '2021-11-17 04:07:45', '2021-11-17 04:07:45',NULL),
+(72, 'Français', 23, '2021-11-17 04:07:45', '2021-11-17 04:07:45',NULL),
+(73, 'Langue des Signes', 23, '2021-11-17 04:07:45', '2021-11-17 04:07:45',NULL),
+(74, 'Gestion d''entreprise', 24, '2021-11-17 04:07:55', '2021-11-17 04:07:55',NULL),
+(75, 'Entrepreneuriat', 24, '2021-11-17 04:07:55', '2021-11-17 04:07:55',NULL),
+(76, 'Puériculture', 25, '2021-11-17 04:08:21', '2021-11-17 04:08:21',NULL),
+(77, 'Jeunes Enfants', 25, '2021-11-17 04:08:21', '2021-11-17 04:08:21',NULL),
+(78, 'Crèche', 25, '2021-11-17 04:08:21', '2021-11-17 04:08:21',NULL),
+
+(79, 'QHSE', 26, '2021-11-17 04:08:31', '2021-11-17 04:08:31',NULL),
+(80, 'Nettoyage', 26, '2021-11-17 04:08:31', '2021-11-17 04:08:31',NULL),
+(81, 'Fibre Optique', 27, '2021-11-17 04:08:53', '2021-11-17 04:08:53',NULL),
+(82, 'Télécommunication', 27, '2021-11-17 04:08:53', '2021-11-17 04:08:53',NULL),
+(83, 'Gestion des Ressources Humaines', 28, '2021-11-17 04:09:04', '2021-11-17 04:09:04',NULL),
+(84, ' CSE', 28, '2021-11-17 04:09:04', '2021-11-17 04:09:04',NULL),
+(85, 'Médecine', 29, NULL, NULL,NULL),
+(86, ' Soignants', 29, NULL, NULL,NULL),
+(87, 'Spécialistes', 29, NULL, NULL,NULL),
+(88, 'Chimie', 30, NULL, NULL,NULL),
+(89, 'Biologie', 30, NULL, NULL,NULL),
+(90, 'Mathématiques', 30, NULL, NULL,NULL),
+(91, 'Administration', 31, '2021-11-17 04:00:01', '2021-11-17 04:00:01',NULL),
+(92, 'Secrétariat Médical', 31, '2021-11-17 04:00:01', '2021-11-17 04:00:01',NULL),
+(93, 'Auxiliaire de Vie', 32, '2021-11-17 04:00:27', '2021-11-17 04:00:27',NULL),
+(94, 'Educateur', 32, '2021-11-17 04:00:27', '2021-11-17 04:00:27',NULL),
+(95, 'Animation', 33, '2021-11-17 04:00:41', '2021-11-17 04:00:41',NULL),
+(96, 'Hôtesse de l''Air', 33, '2021-11-17 04:00:41', '2021-11-17 04:00:41',NULL),
+(97, 'Steward', 33, '2021-11-17 04:00:41', '2021-11-17 04:00:41',NULL),
+(98, 'Sport', 33, '2021-11-17 04:00:41', '2021-11-17 04:00:41',NULL),
+(99, 'Caces', 34, '2021-11-17 04:06:54', '2021-11-17 04:06:54',NULL),
+(100, 'Permis B', 34, '2021-11-17 04:06:54', '2021-11-17 04:06:54',NULL),
+(101, 'Chauffeur de Bus', 34, '2021-11-17 04:06:54', '2021-11-17 04:06:54',NULL),
+(102, 'VTC', 34, '2021-11-17 04:06:54', '2021-11-17 04:06:54',NULL),
+(103, 'Power BI', 9, '2021-11-17 04:06:54', '2021-11-17 04:06:54',NULL);
+
+Effacer les données dans la table modules, pogrammes, cours
+
+------------ 2 juin ---------
+creer le view v_pourcentage_total_module_cfp dans bdd_suiviformation_view_1(views_miasa+avis)
+
+CREATE OR REPLACE VIEW v_pourcentage_total_module_cfp AS SELECT
+    SUM(vpa.pourcentage_note * vpa.nombre_note) as nb_pourcent,
+    SUM(vpa.nombre_note) as nombre_note,
+    md.cfp_id
+    from v_pourcentage_avis as vpa
+    join moduleformation as md on vpa.module_id = md.module_id
+    where md.module_id = vpa.module_id;
+
+---------- 10 juin ----------------
+recréer vue moduleformation dans bdd_suiviformation_view_1(views_miasa+avis)
+
+---------- 20 juin ----------------
+alter table niveaux add progression bigint(20) UNSIGNED NOT NULL;
+Ajouter par defaut dans progression :   Débutant = 1
+                                        Intermédiaire = 3
+                                        Avancé = 4
+                                        Expert = 5
+---------- 23 juin ----------------
+creation des tables dans bdd_suiviformation_mise_a_jour_12(formation interne entreprise).sql
+creation des view dans bdd_suiviformation_view_30(formation_interne).sql
+
+---------- 28 juin ----------------
+alter table modules add date_eval_froid int(2) NULL;
+
+recreer les view dans bdd_suiviformation_view_30(formation_interne).sql
+
+-----------28 juin ----------------
+copier les requettes bdd_evaluation_froid.sql
+
+alter table modules add column date_eval_froid int(2) default 3;

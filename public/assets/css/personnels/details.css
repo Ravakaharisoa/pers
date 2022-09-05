@@ -1,0 +1,62 @@
+/* Géneral */
+* {
+    font-family: Roboto, sans-serif;
+}
+.card .input_form {
+    border: none;
+}
+/* Détails personnels */
+.card .label_form-1 {
+    font-size: 12.8px;
+    color: chocolate;
+}
+.card .button-text {
+    background-color: #33cc00;
+}
+.card .button-text:hover {
+    background-color: #33cc33;
+}
+#Antigene_A, #Antigene_B, #Globule_R, #Antigene_AB {
+    border-radius: 0.2em;
+}
+/* Personnals à charger */
+.modal .input_form {
+    border: none;
+}
+
+/* Table */
+
+table thead tr th span {
+    color: chocolate;
+}
+table tbody tr td a.edit i {
+    color: #FFC107;
+}
+table tbody tr td a.delete i {
+    color: #E34724;
+}
+table.table tbody td {
+    font-size: 14px;
+}
+.modal-header #modal_text_contact {
+    background:
+    linear-gradient(
+      to right,
+      rgba(100, 200, 200, 1),
+      rgba(100, 200, 200, 1)
+    ),
+    linear-gradient(
+      to right,
+      rgba(255, 0, 0, 1),
+      rgba(255, 0, 180, 1),
+      rgba(0, 100, 200, 1)
+  );
+  background-size: 0 0.5px, 0 0.5px;
+  background-position: 100% 100%, 0px 100%;
+  background-repeat: no-repeat;
+  transition: background-size 400ms;
+}
+.modal-header #modal_text_contact:hover {
+    cursor: pointer;
+    background-size: 0 0.5px, 100% 0.5px;
+}

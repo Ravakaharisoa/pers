@@ -1,0 +1,52 @@
+ALTER TABLE `employers`
+ADD `num_permis` INT NULL AFTER `num_ostie`,
+ADD `passeport` VARCHAR(191) NULL AFTER `num_permis`;
+
+CREATE TABLE `upskill`.`pers_relations`
+( `id` INT NOT NULL AUTO_INCREMENT , `relation` VARCHAR(191) NOT NULL ,
+PRIMARY KEY (`id`)) ENGINE = MyISAM;
+
+ALTER TABLE pers_personne_a_charges ADD relation_id bigint(20) UNSIGNED NOT NULL
+REFERENCES pers_relations(id) ON DELETE CASCADE;
+
+ALTER TABLE pers_contact_urgences
+ADD relation_id bigint(20) UNSIGNED NOT NULL
+REFERENCES pers_relations(id) ON DELETE CASCADE;
+
+CREATE TABLE `upskill`.`permis`
+( `id` INT NOT NULL AUTO_INCREMENT , `categorie` CHAR(3) NOT NULL ,
+PRIMARY KEY (`id`)) ENGINE = MyISAM;
+
+// INSERTION CATGEGORIE PERMIS
+
+INSERT INTO `permis` (`id`, `categorie`) VALUES
+(1, 'A'),
+(2, 'A1'),
+(3, 'B'),
+(4, 'B1'),
+(5, 'C'),
+(6, 'C1'),
+(7, 'D'),
+(8, 'D1'),
+(9, 'BE'),
+(10, 'CE'),
+(11, 'CE1'),
+(12, 'DE'),
+(13, 'DE1');
+
+// INSERTION relation personnes
+
+INSERT INTO `pers_relations` (`id`, `relation`) VALUES
+(1, 'Mari'),
+(2, 'Femme'),
+(3, 'Enfants'),
+(4, 'Parents');
+
+CREATE TABLE `upskill`.`relation_emp_permis`
+( `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY, employer_id bigint(20) UNSIGNED NOT NULL
+REFERENCES employers(id) ON DELETE CASCADE, permis_id bigint(20) UNSIGNED NOT NULL
+REFERENCES employers(id) ON DELETE CASCADE) ENGINE = MyISAM;
+
+ALTER TABLE pers_contact_urgences
+ADD pers_a_charge_id bigint(20) UNSIGNED
+REFERENCES pers_personne_a_charges(id) ON DELETE CASCADE;

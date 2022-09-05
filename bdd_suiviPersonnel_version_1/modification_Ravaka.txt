@@ -1,0 +1,29 @@
+12 Août 2022
+Copier les scripts dans le fichier bdd_suiviPersonnel_6(groupe_emploi)
+Récopier la view v_employe dans le fichier  bdd_suiviPersonnel_view_0.sql
+Copier la view bdd_suiviPersonnel_view_2.sql
+
+16 Août 2022
+Modification de la table pers_historique_employers ajout colonne groupe_emploi_id
+
+23 Août 2022
+Créer une nouvelle table pers_demissions dans le fichier bdd_suiviPersonnel_5.sql
+
+ INSERT INTO `paie_avantage_en_natures` (`id`, `code`, `designation`, `unite`) VALUES
+(1, '5000', 'Logement', NULL),
+(2, '5001', 'Véhicule', NULL),
+(3, '5002', 'Téléphone', NULL);
+
+INSERT INTO `paie_prime_indemnites` (`id`, `code`, `designation`, `unite`) VALUES
+(1, '4000', 'Acienneté', NULL),
+(2, '4001', 'Treisieme mois', NULL),
+(3, '4002', 'Performance', NULL);
+25 Août 2022
+Supprimer la table pers_avantage_en_nature dans le fichier bdd_suiviPersonnel_3
+et le récréer dans le fichier bdd_suiviPersonnel_5
+
+30 Août 2022
+modifier la table pers_demissions ajouter la colonne entreprise_id dans le fichier bdd_suiviPersonnel_5
+
+01 Septembre 2022
+créer de nouvelle view v_liste_employe_demissioner dans le fichier bdd_suiviPersonnel_view_3.sql
