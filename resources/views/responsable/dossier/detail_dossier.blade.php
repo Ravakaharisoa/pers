@@ -149,7 +149,7 @@
                 console.log(response);
             },
             error: function(response){
-                console.log('tay')
+                console.log(response)
             }
        });
     });
